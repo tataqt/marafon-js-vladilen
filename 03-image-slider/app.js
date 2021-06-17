@@ -9,11 +9,25 @@ let activeSlideIndex = 0;
 sidebar.style.top = `-${(slidesCount -1)*100}vh`;
 
 downBtn.addEventListener('click', () => {
-    changeSlide('down')
+    changeSlide('down');
 });
 
 upBtn.addEventListener('click', () => {
     changeSlide('up');
+});
+
+document.addEventListener('keydown', event => {
+    if (event.code === 'ArrowUp') {
+        changeSlide('up');
+    } else if (event.code === 'ArrowDown') {
+        changeSlide('down');
+
+    } else if (event.code === 'KeyW') {
+        changeSlide('up');
+
+    } else if (event.code === 'KeyS') {
+        changeSlide('down');
+    }
 });
 
 function changeSlide(direction) {
