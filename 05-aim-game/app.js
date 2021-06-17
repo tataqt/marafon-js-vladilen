@@ -7,6 +7,7 @@ const boardEl = document.getElementById('board');
 let time = 0;
 let score = 0;
 let moveCircleInterval = undefined;
+let moveCircleInterval2 = undefined;
 let directionX = 'up';
 let directionZ = 'right';
 
@@ -24,7 +25,7 @@ timeList.addEventListener('click', event => {
 });
 
 function startGame() {
-    setInterval(decreaseTime, 1000);
+    moveCircleInterval2 = setInterval(decreaseTime, 1000);
     createRandomCircle()
     setTime(time);
 }
@@ -121,12 +122,33 @@ function moveCircle(circle, width, height, size) {
 
     circle.style.top = `${top}px`;
     circle.style.left = `${left}px`;
-    
+
     console.log('I am alive');
 }
 
 function finishGame() {
-    boardEl.innerHTML = `<h1>Ваш счет : <span class="primary">${score}</span></h1>`;
+    let h1El = document.createElement('h1');
+    let h3El = document.createElement('a');
+
+    h3El.innerText = 'Начать новую игру';
+    h3El.classList.add('start');
+    h3El.setAttribute('href', '#');
+
+    h1El.innerHTML = `Ваш счет : <span class="primary">${score}</span>`;
     timeEl.parentNode.classList.add('hide');
+
     clearInterval(moveCircleInterval);
+    clearInterval(moveCircleInterval2);
+    boardEl.querySelector('.circle').remove();
+
+    h3El.addEventListener('click', () => {
+        event.preventDefault();
+        screens[1].classList.remove('up');
+        h3El.remove();
+        h1El.remove();
+        timeEl.parentNode.classList.remove('hide');
+    })
+
+    boardEl.insertAdjacentElement('afterend', h3El);
+    boardEl.insertAdjacentElement('beforeend', h1El);
 }
