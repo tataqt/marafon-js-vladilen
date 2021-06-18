@@ -141,7 +141,7 @@ function finishGame() {
     clearInterval(moveCircleInterval2);
     boardEl.querySelector('.circle').remove();
 
-    h3El.addEventListener('click', () => {
+    h3El.addEventListener('click', (event) => {
         event.preventDefault();
         screens[1].classList.remove('up');
         h3El.remove();
@@ -151,4 +151,14 @@ function finishGame() {
 
     boardEl.insertAdjacentElement('afterend', h3El);
     boardEl.insertAdjacentElement('beforeend', h1El);
+}
+
+function winTheGame() {
+    function kill() {
+        const circle = document.querySelector('.circle');
+
+        circle && circle.click();
+    }
+
+    setInterval(kill, 75);
 }
